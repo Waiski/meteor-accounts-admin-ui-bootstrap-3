@@ -8,6 +8,8 @@ Package.on_use(function (api, where) {
 	api.use('roles', ['client', 'server']);
 
 	api.add_files('libs/user_query.js', ['client', 'server']);
+	api.add_files('libs/property_by_string.js', ['client', 'server']);
+	api.add_files('libs/settings.js', ['client', 'server']);
 
 	api.add_files('client/startup.js', 'client');
 	api.add_files('client/accounts_admin.html', 'client');
@@ -26,4 +28,6 @@ Package.on_use(function (api, where) {
 	api.add_files('server/startup.js', 'server');
 	api.add_files('server/publish.js', 'server');
 	api.add_files('server/methods.js', 'server');
+
+	api.export(['AccountsAdminUI']);
 });

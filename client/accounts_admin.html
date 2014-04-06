@@ -13,31 +13,21 @@
     <table class='table table-striped'>
         <thead>
             <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Roles</th>
+                {{#each columns}}
+                    <th>
+                        {{> header column=.}}
+                    </th>
+                {{/each}}
             </tr>
         </thead>
         <tbody>
             {{#each users}}
                 <tr class="{{#if myself _id}}info{{/if}}">
-                    <td>
-                        {{#unless myself _id}}
-                            <span data-toggle="modal" href="#deleteaccount" class="glyphicon glyphicon-trash clickable"></span>
-                            <span data-toggle="modal" href="#updateaccount" class="glyphicon glyphicon-pencil clickable"></span>
-                            <span data-toggle="modal" href="#infoaccount" class="glyphicon glyphicon-info-sign clickable"></span>
-                        {{/unless}}
-                    </td>
-                    <td>
-                        {{#if profile.name}}
-                            {{profile.name}}
-                        {{else}}
-                            {{email}}
-                        {{/if}}
-                    </td>
-                    <td>{{email}}</td>
-                    <td>{{roles}}</td>
+                    {{#each columns}}
+                        <td>
+                            {{> cell column=. user=..}}
+                        </td>
+                    {{/each}}
                 </tr>
             {{/each}}
         </tbody>
@@ -46,4 +36,28 @@
     {{> deleteAccountModal}}
     {{> infoAccountModal}}
     {{> updateAccountModal}}
+</template>
+
+<template name="accountEditCell">
+    {{#unless myself user._id}}
+        <span data-toggle="modal" href="#deleteaccount" class="glyphicon glyphicon-trash clickable"></span>
+        <span data-toggle="modal" href="#updateaccount" class="glyphicon glyphicon-pencil clickable"></span>
+        <span data-toggle="modal" href="#infoaccount" class="glyphicon glyphicon-info-sign clickable"></span>
+    {{/unless}}
+</template>
+
+<template name="accountNameCell">
+    {{#if user.profile.name}}
+        {{user.profile.name}}
+    {{else}}
+        {{email}}
+    {{/if}}
+</template>
+
+<template name="accountBasicCell">
+    {{value}}
+</template>
+
+<template name="accountHeaderCell">
+    {{header}}
 </template>
